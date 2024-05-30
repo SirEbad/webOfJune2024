@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi text Effect</title>
+
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        div {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #000;
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: #fff;
+        }
+
+        span {
+            color: rgb(122, 43, 226);
+            position: relative;
+        }
+
+        span::before {
+            content: "";
+            width: 1.5rem;
+            height: 1.5rem;
+            right: -28px;
+            position: absolute;
+            top: 33%;
+            background-color: rgb(122, 43, 226);
+            border-radius: 50%;
+            animation: anime 0.5s infinite both;
+        }
+        @keyframes anime {
+            50%{
+                opacity: 0;
+            }
+        }
+        .span_b::before{
+            animation: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <section>
+        <div>
+            <h1>Coding is <span></span></h1>
+        </div>
+    </section>
+
+
+
+    <script>
+
+        let currentchar = document.querySelector("h1 span");
+        let words = ["Life", "OPPORTUNITE", "Lead", "World"];
+        let wordindex = 0;
+        let charindex = 1;
+        let isDeleting = false;
+
+        const texteffect = () => {
+            currentchar.textContent = words[wordindex].substring(0, charindex);
+            if (!isDeleting && charindex<words[wordindex].length) {
+                charindex++;
+                currentchar.classList.add("span_b")
+                setTimeout(texteffect,200);
+            }
+            else if(isDeleting && charindex >0){
+                charindex--;
+                currentchar.classList.add("span_b")
+                setTimeout(texteffect,300);
+            }
+            else{
+                isDeleting=!isDeleting;
+                currentchar.classList.remove("span_b")
+                wordindex=!isDeleting?(wordindex+1)%words.length:wordindex;
+                setTimeout(texteffect,800);
+            }
+
+
+
+        }
+
+
+        texteffect();
+
+    </script>
+     <!-- // setTimeout(texteffect(),200); -->
+<!-- currentchar.textContent=words[wordindex].substring(0, charindex); -->
+</body>
+
+</html>
